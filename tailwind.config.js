@@ -7,6 +7,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Montserrat', ...(defaultTheme.fontFamily.serif ?? [])],
+        noto: ['Noto Sans', ...(defaultTheme.fontFamily.serif ?? [])],
       },
       colors: {
         green: {
@@ -25,8 +26,9 @@ export default {
           primary: '#41EBFFFD',
         },
         gray: {
-          primary: '#D9D9D9',
-          secondary: '#FAFAFA',
+          primary: '#666666',
+          secondary: '#D9D9D9',
+          light: '#FAFAFA',
         },
         blue: {
           secondary: '#4182F9',

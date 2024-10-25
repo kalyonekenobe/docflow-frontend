@@ -10,6 +10,7 @@ import ServicePage from '../../pages/ServicePage/ServicePage';
 import AuthProtectedRouteTemplate from '../../templates/AuthProtectedRouteTemplate/AuthProtectedRouteTemplate';
 import AppTemplate from '../../templates/AppTemplate/AppTemplate';
 import WithNavbarTemplate from '../../templates/WithNavbarTemplate/WithNavbarTemplate';
+import WithFooterTemplate from '../../templates/WithFooterTemplate/WithFooterTemplate';
 
 const App: FC = () => {
   return (
@@ -20,9 +21,11 @@ const App: FC = () => {
           <Route path={ApplicationRoutes.SignUp} Component={SignUpPage} />
           <Route Component={AuthProtectedRouteTemplate}>
             <Route Component={WithNavbarTemplate}>
-              <Route index path={ApplicationRoutes.Root} Component={HomePage} />
-              <Route path={ApplicationRoutes.Profile} Component={ProfilePage} />
-              <Route path={ApplicationRoutes.Service} Component={ServicePage} />
+              <Route Component={WithFooterTemplate}>
+                <Route index path={ApplicationRoutes.Root} Component={HomePage} />
+                <Route path={ApplicationRoutes.Profile} Component={ProfilePage} />
+                <Route path={ApplicationRoutes.Service} Component={ServicePage} />
+              </Route>
             </Route>
           </Route>
         </Route>

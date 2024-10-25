@@ -5,7 +5,7 @@ import { ApplicationRoutes } from '../../utils/app.utils';
 
 const Navbar: FC = () => {
   return (
-    <div className='bg-light-primary text-dark-primary py-5 px-28 flex items-center sticky top-0'>
+    <div className='bg-light-primary text-dark-primary py-5 px-28 flex items-center sticky top-0 z-50'>
       <div className='flex items-center gap-5'>
         <LogoIcon className='size-28 hover:text-dark-secondary transition-all duration-300 cursor-pointer' />
       </div>

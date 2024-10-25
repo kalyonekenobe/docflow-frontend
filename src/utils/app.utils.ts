@@ -5,4 +5,6 @@ export enum ApplicationRoutes {
   SignUp = 'sign-up',
   Profile = 'profile',
   Service = 'service',
+  Docs = 'docs',
+  Contact = 'contact',
 }

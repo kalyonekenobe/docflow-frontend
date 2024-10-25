@@ -7,18 +7,24 @@ import SignInPage from '../../pages/SignInPage/SignInPage';
 import SignUpPage from '../../pages/SignUpPage/SignUpPage';
 import ProfilePage from '../../pages/ProfilePage/ProfilePage';
 import ServicePage from '../../pages/ServicePage/ServicePage';
-import AuthProtectedRoute from '../../templates/AuthProtectedRoute/AuthProtectedRoute';
+import AuthProtectedRouteTemplate from '../../templates/AuthProtectedRouteTemplate/AuthProtectedRouteTemplate';
+import AppTemplate from '../../templates/AppTemplate/AppTemplate';
+import WithNavbarTemplate from '../../templates/WithNavbarTemplate/WithNavbarTemplate';
 
 const App: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={ApplicationRoutes.SignIn} Component={SignInPage} />
-        <Route path={ApplicationRoutes.SignUp} Component={SignUpPage} />
-        <Route Component={AuthProtectedRoute}>
-          <Route index path={ApplicationRoutes.Root} Component={HomePage} />
-          <Route path={ApplicationRoutes.Profile} Component={ProfilePage} />
-          <Route path={ApplicationRoutes.Service} Component={ServicePage} />
+        <Route Component={AppTemplate}>
+          <Route path={ApplicationRoutes.SignIn} Component={SignInPage} />
+          <Route path={ApplicationRoutes.SignUp} Component={SignUpPage} />
+          <Route Component={AuthProtectedRouteTemplate}>
+            <Route Component={WithNavbarTemplate}>
+              <Route index path={ApplicationRoutes.Root} Component={HomePage} />
+              <Route path={ApplicationRoutes.Profile} Component={ProfilePage} />
+              <Route path={ApplicationRoutes.Service} Component={ServicePage} />
+            </Route>
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

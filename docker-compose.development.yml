@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: docflow/docflow:nginx
+    image: docflowteam/docflow:nginx
     platform: linux/amd64
     build:
       dockerfile_inline: |

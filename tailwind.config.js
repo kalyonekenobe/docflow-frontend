@@ -31,6 +31,9 @@ export default {
         blue: {
           secondary: '#4182F9',
         },
+        red: {
+          primary: '#EB5757',
+        },
       },
     },
   },

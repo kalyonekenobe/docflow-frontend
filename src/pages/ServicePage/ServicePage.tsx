@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 const ServicePage: FC = () => {
-  return <div>asfasf</div>;
+  return <main className='flex flex-col flex-1'></main>;
 };
 
 export default ServicePage;

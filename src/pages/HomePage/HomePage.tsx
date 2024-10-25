@@ -1,8 +1,15 @@
 import { FC, FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ApplicationRoutes } from '../../utils/app.utils';
+import {
+  ApplicationRoutes,
+  DocumentTypes,
+  Faculties,
+  SpecialtiesToFaculties,
+  YearsOfStudy,
+} from '../../utils/app.utils';
 import { ArrowRightIcon } from '../../components/Icons/Icons';
 import Select, { Option } from '../../components/Select/Select';
+import { api } from '../../utils/api.utils';
 
 export interface OrderFormState {
   faculty?: string | number;
@@ -16,9 +23,16 @@ const initialState: OrderFormState = {};
 const HomePage: FC = () => {
   const [state, setState] = useState(initialState);
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(state);
+
+    await api.post('/doc/generate', {
+      DocName: state.documentType,
+      Faculty: state.faculty,
+      Specialty: state.specialty,
+      YearOfStudy: state.yearOfStudy,
+    });
+
     setState({
       specialty: -1,
       faculty: -1,
@@ -55,36 +69,46 @@ const HomePage: FC = () => {
             label='Faculty'
             onChoose={value => setState(prevState => ({ ...prevState, faculty: value }))}
           >
-            <Option value='1'>Dropdown option 1</Option>
-            <Option value='2'>Dropdown option 2</Option>
-            <Option value='3'>Dropdown option 3</Option>
+            {Object.values(Faculties).map((faculty, index) => (
+              <Option key={index} value={faculty}>
+                {faculty}
+              </Option>
+            ))}
           </Select>
           <Select
             defaultValue={state.specialty}
             label='Specialty'
             onChoose={value => setState(prevState => ({ ...prevState, specialty: value }))}
           >
-            <Option value='1'>Dropdown option 1</Option>
-            <Option value='2'>Dropdown option 2</Option>
-            <Option value='3'>Dropdown option 3</Option>
+            {Object.values(SpecialtiesToFaculties[state.faculty as Faculties] || {}).map(
+              (specialty, index) => (
+                <Option key={index} value={specialty}>
+                  {specialty}
+                </Option>
+              ),
+            )}
           </Select>
           <Select
             defaultValue={state.yearOfStudy}
             label='Year of study'
             onChoose={value => setState(prevState => ({ ...prevState, yearOfStudy: value }))}
           >
-            <Option value='1'>Dropdown option 1</Option>
-            <Option value='2'>Dropdown option 2</Option>
-            <Option value='3'>Dropdown option 3</Option>
+            {Object.values(YearsOfStudy).map((yearOfStudy, index) => (
+              <Option key={index} value={yearOfStudy}>
+                {yearOfStudy}
+              </Option>
+            ))}
           </Select>
           <Select
             defaultValue={state.documentType}
             label='Document type'
             onChoose={value => setState(prevState => ({ ...prevState, documentType: value }))}
           >
-            <Option value='1'>Dropdown option 1</Option>
-            <Option value='2'>Dropdown option 2</Option>
-            <Option value='3'>Dropdown option 3</Option>
+            {Object.values(DocumentTypes).map((documentType, index) => (
+              <Option key={index} value={documentType}>
+                {documentType}
+              </Option>
+            ))}
           </Select>
           <button
             type='submit'

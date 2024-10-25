@@ -1,9 +1,42 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { LogoIcon, SearchIcon, UserIcon } from '../Icons/Icons';
 import { Link, NavLink } from 'react-router-dom';
 import { ApplicationRoutes } from '../../utils/app.utils';
+import { api } from '../../utils/api.utils';
+import cookies from 'js-cookie';
+
+export interface NavbarState {
+  isLoaded: boolean;
+  userIsAuthenticated: boolean;
+}
+
+const initialState: NavbarState = {
+  isLoaded: false,
+  userIsAuthenticated: false,
+};
 
 const Navbar: FC = () => {
+  const [state, setState] = useState(initialState);
+
+  useEffect(() => {
+    if (!state.isLoaded) {
+      setState({ ...state, isLoaded: true });
+    } else {
+      const request = async () => {
+        try {
+          await api.get('/user', {
+            headers: {
+              Authorization: `Bearer ${cookies.get(import.meta.env.VITE_ACCESS_TOKEN_NAME)}`,
+            },
+          });
+          setState({ ...state, userIsAuthenticated: true });
+        } catch (_error) {}
+      };
+
+      request().catch(console.log);
+    }
+  }, [state.isLoaded]);
+
   return (
     <div className='bg-light-primary text-dark-primary py-5 px-28 flex items-center sticky top-0 z-50'>
       <div className='flex items-center gap-5'>
@@ -63,12 +96,14 @@ const Navbar: FC = () => {
             <UserIcon className='size-8 stroke-2' />
           </Link>
         </div>
-        <Link
-          to={ApplicationRoutes.SignIn}
-          className='text-light-primary bg-dark-primary rounded-lg px-8 py-3 font-semibold hover:bg-dark-secondary transition-all duration-300'
-        >
-          Sign In
-        </Link>
+        {!state.userIsAuthenticated && (
+          <Link
+            to={ApplicationRoutes.SignIn}
+            className='text-light-primary bg-dark-primary rounded-lg px-8 py-3 font-semibold hover:bg-dark-secondary transition-all duration-300'
+          >
+            Sign In
+          </Link>
+        )}
       </div>
     </div>
   );

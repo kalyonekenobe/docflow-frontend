@@ -2,6 +2,7 @@ import { FC, FormEvent, useState } from 'react';
 import { LogoIcon } from '../../components/Icons/Icons';
 import { Link } from 'react-router-dom';
 import { ApplicationRoutes } from '../../utils/app.utils';
+import { api } from '../../utils/api.utils'
 
 export interface SignUpFormState {
   email?: string;
@@ -19,6 +20,8 @@ const SignUpPage: FC = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     console.log(state);
+    const response = await api.post(ApplicationRoutes.SignUp, state)
+    console.log(response)
   };
 
   return (

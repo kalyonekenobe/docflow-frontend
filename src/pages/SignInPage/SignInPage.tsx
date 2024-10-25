@@ -2,6 +2,8 @@ import { FC, FormEvent, useState } from 'react';
 import { LogoIcon } from '../../components/Icons/Icons';
 import { ApplicationRoutes } from '../../utils/app.utils';
 import { Link } from 'react-router-dom';
+import { api } from '../../utils/api.utils'
+import cookies from 'js-cookie';
 
 export interface SignInFormState {
   email?: string;
@@ -16,6 +18,9 @@ const SignInPage: FC = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     console.log(state);
+    const response = await api.post(ApplicationRoutes.SignIn, state);
+    console.log(response.data)
+    cookies.set(import.meta.env.VITE_COOKIE_ACCESS_TOKEN_NAME || 'Docflow-Access-Token', response.data.token);
   };
 
   return (

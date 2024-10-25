@@ -1,5 +1,6 @@
 import { Children, cloneElement, FC, HTMLAttributes, useEffect, useState } from 'react';
 import { useOutsideClick } from '../../hooks/dom.hooks';
+import { ChevronDownIcon } from '../Icons/Icons';
 
 export interface SelectProps extends HTMLAttributes<HTMLDivElement> {
   onChoose?: (value: SelectOptionProps['value']) => any;
@@ -69,11 +70,16 @@ const Select: FC<SelectProps> = ({ label, id, defaultValue, onChoose, children }
       )}
       <div
         id={id}
-        className={`border-2 min-h-11 p-3 rounded-lg cursor-pointer ${
+        className={`flex items-center border-2 min-h-11 p-3 rounded-lg cursor-pointer group/select ${
           state.optionsListVisible ? 'border-green-primary' : ''
         } select-body`}
       >
-        {state.selectedChildren || '-'}
+        <div className='flex flex-1'>{state.selectedChildren || '-'}</div>
+        <ChevronDownIcon
+          className={`size-4 stroke-2 transition-all duration-300 ${
+            state.optionsListVisible ? 'rotate-180' : ''
+          }`}
+        />
       </div>
       {state.optionsListVisible && (
         <div className='select-none rounded-b-xl flex flex-col absolute top-[calc(100%_-_6px)] left-0 right-0 bg-light-primary divide-y border z-40'>

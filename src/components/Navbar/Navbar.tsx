@@ -64,10 +64,10 @@ const Navbar: FC = () => {
           </Link>
         </div>
         <Link
-          to={ApplicationRoutes.SignUp}
+          to={ApplicationRoutes.SignIn}
           className='text-light-primary bg-dark-primary rounded-lg px-8 py-3 font-semibold hover:bg-dark-secondary transition-all duration-300'
         >
-          Sign Up
+          Sign In
         </Link>
       </div>
     </div>

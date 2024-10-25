@@ -85,7 +85,7 @@ const Select: FC<SelectProps> = ({ label, id, defaultValue, onChoose, children }
                   ? `p-3 bg-green-primary text-light-primary transition-all duration-300 cursor-pointer ${
                       Children.count(children) - 1 === index ? 'rounded-b-xl' : ''
                     }`
-                  : `p-3 text-dark-primary bg-light-primary hover:bg-green-primary hover:text-light-primary transition-all duration-300 cursor-pointer  ${
+                  : `p-3 text-dark-primary bg-light-primary hover:bg-green-primary hover:text-light-primary transition-all duration-300 cursor-pointer ${
                       Children.count(children) - 1 === index ? 'rounded-b-xl' : ''
                     }`,
             }),

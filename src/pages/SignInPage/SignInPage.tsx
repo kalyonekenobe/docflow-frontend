@@ -1,7 +1,7 @@
 import { FC, FormEvent, useState } from 'react';
 import { LogoIcon } from '../../components/Icons/Icons';
 import { ApplicationRoutes } from '../../utils/app.utils';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../../utils/api.utils'
 import cookies from 'js-cookie';
 
@@ -14,6 +14,7 @@ const initialState: SignInFormState = {};
 
 const SignInPage: FC = () => {
   const [state, setState] = useState(initialState);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -21,6 +22,7 @@ const SignInPage: FC = () => {
     const response = await api.post(ApplicationRoutes.SignIn, state);
     console.log(response.data)
     cookies.set(import.meta.env.VITE_COOKIE_ACCESS_TOKEN_NAME || 'Docflow-Access-Token', response.data.token);
+    navigate(ApplicationRoutes.Root)
   };
 
   return (

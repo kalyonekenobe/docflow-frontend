@@ -1,4 +1,5 @@
 import axios, { HttpStatusCode } from 'axios';
+import cookies from 'js-cookie';
 
 // Function to get the backend URL
 export const getBackendUrl = () => {
@@ -19,7 +20,10 @@ export const reserveApiInstance = axios.create({
 
 // Use request interceptors
 api.interceptors.request.use(
-  async config => config,
+  async config => {
+    config.headers.Authorization = cookies.get(import.meta.env.VITE_COOKIE_ACCESS_TOKEN_NAME)
+    return config
+  },
   async error => Promise.reject(error),
 );
 

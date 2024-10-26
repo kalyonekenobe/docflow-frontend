@@ -24,11 +24,11 @@ const AuthProtectedRoute: FC = () => {
         try {
           await api.get('/user', {
             headers: {
-              Authorization: `Bearer ${cookies.get(import.meta.env.VITE_ACCESS_TOKEN_NAME)}`,
+              Authorization: `${cookies.get(import.meta.env.VITE_COOKIE_ACCESS_TOKEN_NAME)}`,
             },
           });
         } catch (error) {
-          cookies.remove(import.meta.env.VITE_ACCESS_TOKEN_NAME);
+          cookies.remove(import.meta.env.VITE_COOKIE_ACCESS_TOKEN_NAME);
           navigate(ApplicationRoutes.SignIn);
         }
       };

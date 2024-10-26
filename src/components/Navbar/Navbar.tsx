@@ -26,7 +26,7 @@ const Navbar: FC = () => {
         try {
           await api.get('/user', {
             headers: {
-              Authorization: `Bearer ${cookies.get(import.meta.env.VITE_ACCESS_TOKEN_NAME)}`,
+              Authorization: `${cookies.get(import.meta.env.VITE_COOKIE_ACCESS_TOKEN_NAME)}`,
             },
           });
           setState({ ...state, userIsAuthenticated: true });
